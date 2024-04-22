@@ -49,3 +49,28 @@ window.onscroll = () => {
 
     footer.classList.toggle('show-animate', this.innerHeight + this.scrollY >= document.scrollingElement.scrollHeight);
 }
+
+
+// Function to toggle between light and dark mode
+function toggleTheme() {
+    const body = document.body;
+    body.classList.toggle("dark-mode");
+    
+    // Save the user's preference to local storage
+    const theme = body.classList.contains("dark-mode") ? "dark" : "light";
+    localStorage.setItem("theme", theme);
+}
+
+// Add event listener to the theme toggle button
+document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
+
+// Check user's preference from local storage and set the theme accordingly
+const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+const storedTheme = localStorage.getItem("theme");
+
+if (storedTheme === "dark" || (!storedTheme && userPrefersDark)) {
+    document.body.classList.add("dark-mode");
+} else {
+    document.body.classList.remove("dark-mode");
+}
+
